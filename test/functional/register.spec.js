@@ -1,8 +1,5 @@
 const { test, trait } = use('Test/Suite')('Register')
 
-/** @type {import('@adonisjs/lucid/src/Factory')} */
-const Factory = use('Factory')
-
 trait('Test/ApiClient')
 
 test('it should return a new user', async ({ assert, client }) => {
