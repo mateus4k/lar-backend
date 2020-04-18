@@ -1,11 +1,12 @@
 const { test, trait } = use('Test/Suite')('Register')
 
 trait('Test/ApiClient')
+trait('DatabaseTransactions')
 
 test('it should return a new user', async ({ assert, client }) => {
   const sessionPayload = {
     name: 'Mateus Sampaio',
-    email: 'mateus@mateus.com',
+    email: 'mateus4k@protonmail.ch',
     password: '123456'
   }
 
