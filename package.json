@@ -1,8 +1,8 @@
 {
-  "name": "adonis-api-app",
+  "name": "lar-backend",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "LAR App Backend",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -12,7 +12,7 @@
     "adonisjs",
     "adonis-app"
   ],
-  "author": "",
+  "author": "mateus4k@protonmail.ch",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
@@ -23,7 +23,8 @@
     "@adonisjs/fold": "^4.0.9",
     "@adonisjs/framework": "^5.0.9",
     "@adonisjs/ignitor": "^2.0.8",
-    "@adonisjs/lucid": "^6.1.3"
+    "@adonisjs/lucid": "^6.1.3",
+    "@adonisjs/vow": "^1.0.17"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -32,7 +33,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^2.0.4"
+    "prettier": "^2.0.4",
+    "sqlite3": "^4.1.1"
   },
   "autoload": {
     "App": "./app"

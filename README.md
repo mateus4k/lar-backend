@@ -1,28 +1,38 @@
-# Adonis API application
+# LAR | Gestão Financeira Domiciliar
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+## Levantameto de requisitos
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+### Requisitos funcionais
 
-## Setup
+- O usuário deve poder criar uma conta com nome, e-mail e senha;
+- O usuário deve poder se autenticar na aplicação com e-mail e senha;
+- O usuário deve poder alterar seu nome e senha informando a senha antiga, a senha nova e a confirmação da senha nova;
 
-Use the adonis command to install the blueprint
+- Após o primeiro login, o usuário deverá criar seu grupo ou entrar em um já existente com seu respectivo código.
 
-```bash
-adonis new yardstick --api-only
-```
+- O líder do grupo deve poder repassar essa responsabilidade para outro membro.
 
-or manually clone the repo and then run `npm install`.
+- O usuário deve conter categorias padrões ao se cadastrar
+- O usuário deve poder gerenciar suas categorias (ícone, nome e cor)
 
+- O usuário deve poder inserir um novo gasto escolhendo seu nome, data e hora, categoria e valor
 
-### Migrations
+- O usuário poderá visualizar gráficos com os gastos do mês por categoria.
 
-Run the following command to run startup migrations.
+- O usuário líder deverá ser notificado a cada gasto de seus dependentes.
 
-```js
-adonis migration:run
-```
+### Requisitos não funcionais
+
+- Offline first
+- Banco de dados SQL
+- Mobile com React Native
+- Back-end com NodeJs
+
+### Regras de negócio
+
+- O e-mail do usuário é único
+- O usuário não pode alterar seu e-mail
+- O usuário criador do grupo deve ser automaticamente o líder
+- Somente o líder poderá editar ou excluir despesas
+- O dependente só pode ver suas próprias despesas
+- Todos cadastros devem possuir validação de campos com mensagens legíveis
