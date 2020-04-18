@@ -18,7 +18,7 @@ test('it should send an email with reset password instructions', async ({
     email: 'mateus4k@protonmail.ch'
   }
 
-  await Factory.model('App/Models/User').create(forgotPayload)
+  const user = await Factory.model('App/Models/User').create(forgotPayload)
 
   const response = await client.post('/forgot').send(forgotPayload).end()
 
@@ -27,6 +27,13 @@ test('it should send an email with reset password instructions', async ({
   const recentEmail = Mail.pullRecent()
 
   assert.equal(recentEmail.message.to[0].address, forgotPayload.email)
+
+  const token = await user.tokens().first()
+
+  assert.include(token.toJSON(), {
+    user_id: user.id,
+    type: 'forgotpassword'
+  })
 
   Mail.restore()
 })
