@@ -64,7 +64,6 @@ test('it should be able to reset password', async ({ assert, client }) => {
 })
 
 test('it cannot reset password after 2h of forgot password request', async ({
-  assert,
   client
 }) => {
   const email = 'mateus4k@protonmail.ch'
