@@ -6,7 +6,7 @@ const Route = use('Route')
 /**
  * Auth
  */
-Route.post('/sessions', 'SessionController.store')
-Route.post('/register', 'RegisterController.store')
-Route.post('/forgot', 'ForgotPasswordController.store')
-Route.post('/reset', 'ResetPasswordController.store')
+Route.post('/sessions', 'SessionController.store').validator('Session')
+Route.post('/register', 'RegisterController.store').validator('Register')
+Route.post('/forgot', 'ForgotPasswordController.store').validator('Forgot')
+Route.post('/reset', 'ResetPasswordController.store').validator('Reset')
