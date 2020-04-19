@@ -4,7 +4,7 @@ class Register {
   get rules() {
     return {
       name: 'required|max:254',
-      email: 'email|required',
+      email: 'required|email|unique:users',
       password: 'required'
     }
   }
