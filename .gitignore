@@ -9,3 +9,7 @@ tmp
 
 # The development sqlite file
 database/*.sqlite
+
+# Nyc code coverage report output
+.nyc_output
+coverage

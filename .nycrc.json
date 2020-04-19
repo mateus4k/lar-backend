@@ -1,0 +1,11 @@
+{
+  "all": true,
+  "check-coverage": false,
+  "include": [
+    "app/Controllers/**/*.js"
+  ],
+  "exclude": [
+    "**/*.spec.js"
+  ],
+  "reporter": ["text"]
+}
