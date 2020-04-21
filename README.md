@@ -22,9 +22,9 @@ interface user {
 ```ts
 interface family {
   id: int
-  user_id: int // lider
-  code: string //unique|random|length=6
+  user_id?: int // lider
   name: string
+  code: string //unique|random|length=6
   timestamps: datetime;
 }
 ```
@@ -41,16 +41,12 @@ interface family_users {
 
 - O usuário deve conter categorias padrões ao se cadastrar
 
-----
-how to create a seed for entire users
-----
-
 - O usuário deve poder gerenciar suas categorias (ícone, nome e cor)
 
 ```ts
 interface categories {
   id: int
-  user_id: int
+  family_id: int
   name: string
   icon: string
   color: string // length=6
