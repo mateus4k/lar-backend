@@ -10,13 +10,13 @@ class FamilySchema extends Schema {
       table
         .integer('user_id')
         .unsigned()
+        .unique()
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
-        .unique()
-      table.string('name', 254)
-      table.string('code', 8).unique()
+      table.string('name', 254).notNullable()
+      table.string('code', 8).notNullable().unique()
       table.timestamps()
     })
   }

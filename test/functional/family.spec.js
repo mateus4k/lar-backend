@@ -3,6 +3,12 @@ const { test, trait } = use('Test/Suite')('Family')
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const User = use('App/Models/User')
+
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Family = use('App/Models/Family')
+
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
@@ -43,4 +49,27 @@ test('it should not be able to create more than one family with the same user', 
     .end()
 
   response.assertStatus(400)
+})
+
+test('it should be a null user foreign key after deleting the user', async ({
+  assert
+}) => {
+  const userFactory = await Factory.model('App/Models/User').make()
+
+  const familyFactory = await Factory.model('App/Models/Family').make({
+    user_id: userFactory.id
+  })
+
+  const user = await User.create({
+    ...userFactory.toJSON(),
+    password: '123456'
+  })
+
+  const factory = await Family.create(familyFactory.toJSON())
+
+  await user.delete()
+
+  await factory.reload()
+
+  assert.isNull(factory.user_id)
 })
