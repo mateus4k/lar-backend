@@ -16,8 +16,7 @@ test('it should return a new user', async ({ assert, client }) => {
   assert.exists(response.body.user.id)
 })
 
-test('it should cannot allow two users with the same email', async ({
-  assert,
+test('it should not allow two users with the same email', async ({
   client
 }) => {
   const sessionPayload = {
