@@ -5,7 +5,7 @@ class Register {
     return {
       name: 'required|max:254',
       email: 'required|email|unique:users',
-      password: 'required'
+      password: 'required|max:60'
     }
   }
 }
