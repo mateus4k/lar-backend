@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "node ace test",
-    "coverage": "nyc adonis test"
+    "coverage": "nyc adonis test",
+    "debug": "adonis serve --dev --debug"
   },
   "keywords": [
     "adonisjs",
