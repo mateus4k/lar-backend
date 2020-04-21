@@ -10,14 +10,12 @@ trait('Auth/Client')
 test('it should be able to create a new family', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
 
-  const familyPayload = {
-    name: 'Família'
-  }
+  const { name } = await Factory.model('App/Models/Family').make()
 
   const response = await client
     .post('/families')
     .loginVia(user, 'jwt')
-    .send(familyPayload)
+    .send({ name })
     .end()
 
   response.assertStatus(201)
@@ -26,21 +24,22 @@ test('it should be able to create a new family', async ({ assert, client }) => {
 })
 
 test('it should not be able to create more than one family with the same user', async ({
-  assert,
   client
 }) => {
   const user = await Factory.model('App/Models/User').create()
 
-  const familyPayload = {
-    name: 'Família'
-  }
+  const family = await Factory.model('App/Models/Family').make()
 
-  await client.post('/families').loginVia(user, 'jwt').send(familyPayload).end()
+  await client
+    .post('/families')
+    .loginVia(user, 'jwt')
+    .send(family.toJSON())
+    .end()
 
   const response = await client
     .post('/families')
     .loginVia(user, 'jwt')
-    .send(familyPayload)
+    .send(family.toJSON())
     .end()
 
   response.assertStatus(400)
