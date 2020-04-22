@@ -23,6 +23,8 @@ class User extends Model {
 
   family() {
     return this.belongsTo('App/Models/Family')
+      .pivotTable('family_users')
+      .withTimestamps()
   }
 
   static get hidden() {

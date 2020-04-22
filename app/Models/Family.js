@@ -13,6 +13,12 @@ class Family extends Model {
   user() {
     return this.hasOne('App/Models/User')
   }
+
+  users() {
+    return this.belongsToMany('App/Models/User')
+      .pivotTable('family_users')
+      .withTimestamps()
+  }
 }
 
 module.exports = Family

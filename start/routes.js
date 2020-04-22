@@ -14,5 +14,7 @@ Route.post('reset', 'ResetPasswordController.store').validator('Reset')
 Route.group(() => {
   Route.post('accept_rules', 'AcceptRuleController.store')
 
+  Route.post('families/:family_code/attach', 'FamilyUserController.store')
+
   Route.post('families', 'FamilyController.store').validator('Family')
 }).middleware('auth:jwt')

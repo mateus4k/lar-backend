@@ -9,6 +9,9 @@ const User = use('App/Models/User')
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Family = use('App/Models/Family')
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const FamilyUser = use('App/Models/FamilyUser')
+
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
@@ -72,4 +75,24 @@ test('it should be a null user foreign key after deleting the user', async ({
   await factory.reload()
 
   assert.isNull(factory.user_id)
+})
+
+test('it should be able to associate a user to a existent family by code', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  const response = await client
+    .post(`families/${family.code}/attach`)
+    .loginVia(user, 'jwt')
+    .end()
+
+  const familyUser = await FamilyUser.first()
+
+  assert.equal(familyUser.user_id, user.id)
+  assert.equal(familyUser.family_id, family.id)
+
+  response.assertStatus(204)
 })
