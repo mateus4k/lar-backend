@@ -7,21 +7,7 @@ class Family extends Model {
   static boot() {
     super.boot()
 
-    this.addHook('beforeCreate', async (familyInstance) => {
-      let code = Math.round(Math.random() * 100)
-
-      code += new Date()
-        .getTime()
-        .toString(16)
-        .split('')
-        .reverse()
-        .join('')
-        .slice(0, 10)
-
-      code = code.slice(0, 8)
-
-      familyInstance.code = code
-    })
+    this.addHook('beforeCreate', 'FamilyHook.createCode')
   }
 
   user() {

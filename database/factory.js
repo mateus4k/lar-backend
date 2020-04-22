@@ -34,7 +34,6 @@ Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/Family', (faker, i, data = {}) => {
   return {
     name: faker.name(),
-    code: faker.string({ length: 8 }),
     ...data
   }
 })
