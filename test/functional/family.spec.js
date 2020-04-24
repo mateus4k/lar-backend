@@ -9,9 +9,6 @@ const User = use('App/Models/User')
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Family = use('App/Models/Family')
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const FamilyUser = use('App/Models/FamilyUser')
-
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
@@ -85,14 +82,13 @@ test('it should be able to associate a user to a existent family by code', async
   const family = await Factory.model('App/Models/Family').create()
 
   const response = await client
-    .post(`families/${family.code}/attach`)
+    .put(`register/${family.code}/associate`)
     .loginVia(user, 'jwt')
     .end()
 
-  const familyUser = await FamilyUser.first()
+  await family.load('users')
 
-  assert.equal(familyUser.user_id, user.id)
-  assert.equal(familyUser.family_id, family.id)
+  assert.equal(family.toJSON().users[0].id, user.id)
 
   response.assertStatus(204)
 })
