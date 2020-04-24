@@ -7,6 +7,7 @@
 | Table          | Type     | Note   |
 | :---           | :---     | :---   |
 | id             | int      |        |
+| family_id      | int      |        |
 | name           | string   |        |
 | email          | string   | unique |
 | password       | string   |        |
@@ -24,15 +25,6 @@
 | name       | string   | NOTNULL                 |
 | code       | string   | NOTNULL/unique/length=8 |
 | timestamps | datetime |                         |
-
----
-
-### FamilyUser **(pivot)**
-
-| Table     | Type |  Note |
-| :---      | :--- | :---  |
-| user_id   | int  |       |
-| family_id | int  |       |
 
 ---
 

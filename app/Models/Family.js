@@ -10,14 +10,12 @@ class Family extends Model {
     this.addHook('beforeCreate', 'FamilyHook.createCode')
   }
 
-  user() {
-    return this.hasOne('App/Models/User')
+  leader() {
+    return this.hasOne('App/Models/User', 'user_id', 'id')
   }
 
   users() {
-    return this.belongsToMany('App/Models/User')
-      .pivotTable('family_users')
-      .withTimestamps()
+    return this.hasMany('App/Models/User', 'id', 'family_id')
   }
 }
 
