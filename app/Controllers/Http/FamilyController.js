@@ -38,6 +38,9 @@ class FamilyController {
       name
     })
 
+    user.family_id = family.id
+    await user.save()
+
     return response.status(201).json(family)
   }
 

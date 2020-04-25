@@ -24,8 +24,11 @@ test('it should be able to create a new family', async ({ assert, client }) => {
     .send({ name })
     .end()
 
+  await user.reload()
+
   response.assertStatus(201)
   assert.exists(response.body.id)
+  assert.equal(user.family_id, response.body.id)
   assert.isTrue(response.body.code.length === 8)
 })
 
