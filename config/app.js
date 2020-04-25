@@ -4,7 +4,6 @@
 const Env = use('Env')
 
 module.exports = {
-
   /*
   |--------------------------------------------------------------------------
   | Application Name
@@ -16,7 +15,7 @@ module.exports = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
+  name: Env.get('APP_NAME', 'LAR'),
 
   /*
   |--------------------------------------------------------------------------
@@ -28,6 +27,7 @@ module.exports = {
   |
   */
   appKey: Env.getOrFail('APP_KEY'),
+  frontUrl: Env.get('FRONT_URL', 'http://localhost:3000'),
 
   http: {
     /*
@@ -81,7 +81,6 @@ module.exports = {
     |
     */
     jsonpCallback: 'callback',
-
 
     /*
     |--------------------------------------------------------------------------

@@ -3,8 +3,8 @@
 const { randomBytes } = require('crypto')
 const { promisify } = require('util')
 
-const Env = use('Env')
 const Mail = use('Mail')
+const Config = use('Config')
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User')
@@ -23,7 +23,9 @@ class ForgotPasswordController {
       type: 'forgotpassword'
     })
 
-    const resetPasswordUrl = `${Env.get('FRONT_URL')}/reset?token=${token}`
+    const resetPasswordUrl = `${Config.get(
+      'app.frontUrl'
+    )}/reset?token=${token}`
 
     await Mail.send(
       'emails.forgotpassword',
@@ -31,8 +33,8 @@ class ForgotPasswordController {
       (message) => {
         message
           .to(user.email)
-          .from('mateus4k@protonmail.ch')
-          .subject('LAR - Recuperação de Senha')
+          .from(Config.get('mail.smtp.host'))
+          .subject(`${Config.get('app.name')} - Recuperação de Senha`)
       }
     )
   }
