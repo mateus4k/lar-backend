@@ -19,11 +19,11 @@ Autenticação
 
 Família
 - [x] Após o primeiro login, o usuário deverá **criar seu lar** ou **entrar em um lar já existente** com seu respectivo código *(id)*.
+- [x] A família deve conter categorias padrões ao se cadastrar
 - [ ] **(PÓS-MVP)** O líder do grupo deve poder repassar essa responsabilidade para outro membro.
 
 Categorias
-- [x] O usuário deve conter categorias padrões ao se cadastrar
-- [ ] O usuário deve poder gerenciar suas categorias (ícone, nome e cor)
+- [ ] O líder da família deve poder gerenciar suas categorias (nome, ícone e cor)
 
 Gastos
 - [ ] O usuário deve poder inserir um novo gasto escolhendo seu nome, data e hora, categoria e valor
