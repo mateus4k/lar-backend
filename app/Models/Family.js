@@ -8,6 +8,7 @@ class Family extends Model {
     super.boot()
 
     this.addHook('beforeCreate', 'FamilyHook.createCode')
+    this.addHook('afterCreate', 'FamilyHook.createDefaultCategories')
   }
 
   leader() {
@@ -16,6 +17,10 @@ class Family extends Model {
 
   users() {
     return this.hasMany('App/Models/User', 'id', 'family_id')
+  }
+
+  categories() {
+    return this.hasMany('App/Models/Category', 'id', 'family_id')
   }
 }
 

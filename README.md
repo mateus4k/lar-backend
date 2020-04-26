@@ -22,7 +22,7 @@ Família
 - [ ] **(PÓS-MVP)** O líder do grupo deve poder repassar essa responsabilidade para outro membro.
 
 Categorias
-- [ ] O usuário deve conter categorias padrões ao se cadastrar
+- [x] O usuário deve conter categorias padrões ao se cadastrar
 - [ ] O usuário deve poder gerenciar suas categorias (ícone, nome e cor)
 
 Gastos

@@ -30,13 +30,14 @@
 
 ### Category
 
-| Table     | Type   | Note     |
-| :---      | :---   | :---     |
-| id        | int    |          |
-| family_id | int    |          |
-| name      | string |          |
-| icon      | string |          |
-| color     | string | length=6 |
+| Table      | Type     | Note      |
+| :---       | :---     | :---      |
+| id         | int      |           |
+| family_id  | int      |           |
+| name       | string   | NOTNULL   |
+| icon       | string   | length=50 |
+| color      | string   | length=6  |
+| timestamps | datetime |           |
 
 ---
 
