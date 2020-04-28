@@ -36,7 +36,7 @@
 | family_id  | int      |           |
 | name       | string   | NOTNULL   |
 | icon       | string   | length=50 |
-| color      | string   | length=6  |
+| color      | string   | length=7  |
 | timestamps | datetime |           |
 
 ---

@@ -18,3 +18,8 @@ Route.group(() => {
 
   Route.post('families', 'FamilyController.store').validator('Family')
 }).middleware('auth:jwt')
+
+Route.group(() => {
+  // TODO: validator
+  Route.post('categories', 'CategoryController.store')
+}).middleware(['auth:jwt', 'family'])

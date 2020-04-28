@@ -4,6 +4,12 @@
 const Model = use('Model')
 
 class Category extends Model {
+  static boot() {
+    super.boot()
+
+    this.addTrait('SoftDelete')
+  }
+
   static get deleteTimestamp() {
     return 'deleted_at/null'
   }

@@ -23,7 +23,7 @@ Família
 - [ ] **(PÓS-MVP)** O líder do grupo deve poder repassar essa responsabilidade para outro membro.
 
 Categorias
-- [ ] O líder da família deve poder gerenciar suas categorias (nome, ícone e cor)
+- [x] O líder da família deve poder gerenciar suas categorias (nome, ícone e cor)
 
 Gastos
 - [ ] O usuário deve poder inserir um novo gasto escolhendo seu nome, data e hora, categoria e valor

@@ -16,3 +16,25 @@ test('standard categories should be created after creating a family', async ({
 
   assert.equal(categories.toJSON()[0].family_id, family.id)
 })
+
+test('it should be able to create a new category', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create()
+
+  const response = await client
+    .post('/categories')
+    .loginVia(user, 'jwt')
+    .send(category.toJSON())
+    .end()
+
+  response.assertStatus(201)
+
+  assert.equal(response.body.category.family_id, family.id)
+})

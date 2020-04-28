@@ -37,3 +37,13 @@ Factory.blueprint('App/Models/Family', (faker, i, data = {}) => {
     ...data
   }
 })
+
+Factory.blueprint('App/Models/Category', (faker, i, data = {}) => {
+  return {
+    family_id: 1,
+    name: faker.word(),
+    icon: faker.word(),
+    color: faker.color({ format: 'hex', casing: 'upper' }),
+    ...data
+  }
+})
