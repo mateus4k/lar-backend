@@ -39,7 +39,10 @@ class CategoryController {
    * @param {Request} ctx.request
    */
   async show({ params, request }) {
-    const category = request.family.categories().where('id', params.id).first()
+    const category = await request.family
+      .categories()
+      .where('id', params.id)
+      .first()
 
     return category
   }
