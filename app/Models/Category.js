@@ -7,7 +7,7 @@ class Category extends Model {
   static boot() {
     super.boot()
 
-    this.addTrait('SoftDelete')
+    this.addTrait('@provider:Lucid/SoftDeletes')
   }
 
   static get deleteTimestamp() {

@@ -21,6 +21,7 @@ const providers = [
   '@adonisjs/mail/providers/MailProvider',
   '@adonisjs/framework/providers/ViewProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
+  '@radmen/adonis-lucid-soft-deletes/providers/SoftDeletesProvider',
   path.join(__dirname, '..', 'providers', 'CustomValidationProvider')
 ]
 
