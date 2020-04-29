@@ -12,15 +12,15 @@ class Family extends Model {
   }
 
   leader() {
-    return this.hasOne('App/Models/User', 'user_id', 'id')
+    return this.hasOne('App/Models/User')
   }
 
   users() {
-    return this.hasMany('App/Models/User', 'id', 'family_id')
+    return this.hasMany('App/Models/User')
   }
 
   categories() {
-    return this.hasMany('App/Models/Category', 'id', 'family_id')
+    return this.hasMany('App/Models/Category')
   }
 }
 
