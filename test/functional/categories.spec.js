@@ -3,6 +3,9 @@ const { test, trait } = use('Test/Suite')('Categories')
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Category = use('App/Models/Category')
+
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
@@ -103,4 +106,30 @@ test('it should be able to update a existent category', async ({
 
   response.assertStatus(204)
   assert.equal(category.name, categoryPayload.name)
+})
+
+test('it should be able delete a category', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  let category = await Factory.model('App/Models/Category').create({
+    family_id: family.id
+  })
+
+  const response = await client
+    .delete(`categories/${category.id}`)
+    .loginVia(user, 'jwt')
+    .end()
+
+  response.assertStatus(204)
+
+  category = await Category.query()
+    .withTrashed()
+    .where('id', category.id)
+    .first()
+
+  assert.exists(category.id)
+  assert.isNotNull(category.deleted_at)
 })

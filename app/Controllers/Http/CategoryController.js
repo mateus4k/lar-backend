@@ -72,7 +72,16 @@ class CategoryController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, request, response }) {
+    const category = await request.family
+      .categories()
+      .where('id', params.id)
+      .first()
+
+    await category.delete()
+
+    response.status(204).send()
+  }
 }
 
 module.exports = CategoryController

@@ -26,4 +26,5 @@ Route.group(() => {
   Route.post('categories', 'CategoryController.store')
   // TODO: validator
   Route.put('categories/:id', 'CategoryController.update')
+  Route.delete('categories/:id', 'CategoryController.destroy')
 }).middleware(['auth:jwt', 'family'])
