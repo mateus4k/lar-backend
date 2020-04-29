@@ -132,4 +132,5 @@ test('it should be able delete a category', async ({ assert, client }) => {
 
   assert.exists(category.id)
   assert.isNotNull(category.deleted_at)
+  assert.isTrue(category.isTrashed)
 })
