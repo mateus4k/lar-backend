@@ -47,7 +47,24 @@ class CategoryController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    const data = request.only(['name', 'icon', 'color'])
+
+    const category = await request.family
+      .categories()
+      .where('id', params.id)
+      .first()
+
+    category.merge(data)
+
+    await category.save()
+
+    return response.status(204).send()
+
+    // const result = await category2.find(1)
+
+    // const category = await Category.findOrFail(params.id)
+  }
 
   /**
    * @param {object} ctx

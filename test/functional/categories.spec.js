@@ -38,3 +38,36 @@ test('it should be able to create a new category', async ({
 
   assert.equal(response.body.category.family_id, family.id)
 })
+
+test('it should be able to show a category', async ({ assert, client }) => {
+  //
+})
+
+test('it should be able to update a existent category', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    name: 'Food'
+  })
+
+  const categoryPayload = {
+    name: 'Market'
+  }
+
+  const response = await client
+    .put(`/categories/${category.id}`)
+    .loginVia(user, 'jwt')
+    .send({ ...categoryPayload })
+    .end()
+
+  await category.reload()
+
+  response.assertStatus(204)
+  assert.equal(category.name, categoryPayload.name)
+})

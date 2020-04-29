@@ -22,4 +22,6 @@ Route.group(() => {
 Route.group(() => {
   // TODO: validator
   Route.post('categories', 'CategoryController.store')
+  // TODO: validator
+  Route.put('categories/:id', 'CategoryController.update')
 }).middleware(['auth:jwt', 'family'])
