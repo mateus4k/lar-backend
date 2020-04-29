@@ -3,7 +3,6 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-/** @typedef {import('@adonisjs/lucid/src/Lucid/Model')} Model */
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Category = use('App/Models/Category')
@@ -23,9 +22,8 @@ class CategoryController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {Model} ctx.request.family
    */
-  async store({ request, response }, ctx) {
+  async store({ request, response }) {
     const data = request.only(['name', 'icon', 'color'])
 
     const category = await Category.create({
@@ -39,10 +37,12 @@ class CategoryController {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, request }) {
+    const category = request.family.categories().where('id', params.id).first()
+
+    return category
+  }
 
   /**
    * @param {object} ctx

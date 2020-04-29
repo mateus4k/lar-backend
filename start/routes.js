@@ -21,6 +21,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('categories', 'CategoryController.index')
+  Route.get('categories/:id', 'CategoryController.show')
   // TODO: validator
   Route.post('categories', 'CategoryController.store')
   // TODO: validator

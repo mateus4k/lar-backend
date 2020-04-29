@@ -56,7 +56,24 @@ test('it should be able to create a new category', async ({
 })
 
 test('it should be able to show a category', async ({ assert, client }) => {
-  //
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    family_id: family.id
+  })
+
+  const response = await client
+    .get(`categories/${category.id}`)
+    .loginVia(user, 'jwt')
+    .end()
+
+  response.assertStatus(200)
+
+  assert.equal(response.body.id, category.id)
+  assert.equal(response.body.family_id, family.id)
 })
 
 test('it should be able to update a existent category', async ({
