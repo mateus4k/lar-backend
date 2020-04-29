@@ -12,10 +12,8 @@ class CategoryController {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async index({ request, response, view }) {
+  async index({ request }) {
     const categories = await request.family.categories().fetch()
 
     return { categories }
