@@ -1,4 +1,4 @@
-const { test, trait } = use('Test/Suite')('Family')
+const { test, trait } = use('Test/Suite')('Categories')
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
@@ -15,6 +15,22 @@ test('standard categories should be created after creating a family', async ({
   const categories = await family.categories().fetch()
 
   assert.equal(categories.toJSON()[0].family_id, family.id)
+})
+
+test('it should be able to list family categories', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const response = await client.get('categories').loginVia(user, 'jwt').end()
+
+  response.assertStatus(200)
+
+  assert.equal(response.body.categories[0].family_id, family.id)
 })
 
 test('it should be able to create a new category', async ({

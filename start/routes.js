@@ -20,6 +20,7 @@ Route.group(() => {
 }).middleware('auth:jwt')
 
 Route.group(() => {
+  Route.get('categories', 'CategoryController.index')
   // TODO: validator
   Route.post('categories', 'CategoryController.store')
   // TODO: validator

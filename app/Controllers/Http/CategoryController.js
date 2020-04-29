@@ -15,7 +15,11 @@ class CategoryController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index({ request, response, view }) {}
+  async index({ request, response, view }) {
+    const categories = await request.family.categories().fetch()
+
+    return { categories }
+  }
 
   /**
    * @param {object} ctx
@@ -60,10 +64,6 @@ class CategoryController {
     await category.save()
 
     return response.status(204).send()
-
-    // const result = await category2.find(1)
-
-    // const category = await Category.findOrFail(params.id)
   }
 
   /**
