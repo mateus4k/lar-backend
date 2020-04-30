@@ -24,10 +24,14 @@ Família
 
 Categorias
 - [x] O líder da família deve poder gerenciar suas categorias (nome, ícone e cor)
+- [ ] A categoria pode ser associada a despesas (expense) ou entrada (revenue)
 
 Gastos
 - [ ] O usuário deve poder inserir um novo gasto escolhendo seu nome, data e hora, categoria e valor
 - [ ] **(PÓS-MVP)** O usuário líder deverá ser notificado a cada gasto de seus dependentes.
+
+Entradas
+- [ ] **(PÓS-MVP)** O usuário líder deve poder registrar uma nova entrada
 
 Relatórios
 - [ ] O usuário poderá visualizar gráficos com os gastos do mês por categoria.
