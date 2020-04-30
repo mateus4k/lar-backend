@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 'use strict'
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
@@ -25,83 +26,111 @@ FamilyHook.createCode = async (family) => {
 }
 
 FamilyHook.createDefaultCategories = async (familyInstance) => {
-  // eslint-disable-next-line camelcase
   const family_id = await familyInstance.id
 
-  const categories = [
+  const types = {
+    revenue: 'revenue',
+    expense: 'expense'
+  }
+
+  /**
+   * revenue
+   */
+  let revenueCategories = [
     {
-      family_id,
       name: 'Casa',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Educação',
       icon: 'book',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Eletrônicos',
       icon: 'computer',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Lazer',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Outros',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Restaurante',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Saúde',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Serviços',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Supermercado',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Transporte',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Vestuário',
       icon: 'home',
       color: '7159c1'
     },
     {
-      family_id,
       name: 'Viagem',
       icon: 'home',
       color: '7159c1'
     }
   ]
 
-  await Category.createMany(categories)
+  revenueCategories = revenueCategories.map((category) => {
+    category.type = types.revenue
+    return category
+  })
+
+  /**
+   * expense
+   */
+  let expenseCategories = [
+    {
+      name: 'Salário',
+      icon: 'money',
+      color: '7159c1'
+    },
+    {
+      name: 'Aluguel',
+      icon: 'money',
+      color: '7159c1'
+    }
+  ]
+
+  expenseCategories = expenseCategories.map((category) => {
+    category.type = types.expense
+    return category
+  })
+
+  let allCategories = [...revenueCategories, ...expenseCategories]
+
+  allCategories = allCategories.map((category) => {
+    category.family_id = family_id
+    return category
+  })
+
+  await Category.createMany(allCategories)
 }

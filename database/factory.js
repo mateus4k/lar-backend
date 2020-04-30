@@ -44,6 +44,7 @@ Factory.blueprint('App/Models/Category', (faker, i, data = {}) => {
     name: faker.word(),
     icon: faker.word(),
     color: faker.color({ format: 'hex', casing: 'upper' }),
+    type: faker.pickone(['revenue', 'expense']),
     ...data
   }
 })

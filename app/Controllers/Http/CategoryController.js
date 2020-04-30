@@ -24,7 +24,7 @@ class CategoryController {
    * @param {Response} ctx.response
    */
   async store({ request, response }) {
-    const data = request.only(['name', 'icon', 'color'])
+    const data = request.only(['name', 'icon', 'color', 'type'])
 
     const category = await Category.create({
       ...data,

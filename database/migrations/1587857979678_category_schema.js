@@ -18,6 +18,7 @@ class CategorySchema extends Schema {
       table.string('name', 254).notNullable()
       table.string('icon', 50)
       table.string('color', 7).notNullable()
+      table.enu('type', ['revenue', 'expense']).notNullable()
       table.timestamp('deleted_at')
       table.timestamps()
     })
