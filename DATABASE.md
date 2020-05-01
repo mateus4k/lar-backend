@@ -30,14 +30,16 @@
 
 ### Category
 
-| Table      | Type     | Note      |
-| :---       | :---     | :---      |
-| id         | int      |           |
-| family_id  | int      |           |
-| name       | string   | NOTNULL   |
-| icon       | string   | length=50 |
-| color      | string   | length=7  |
-| timestamps | datetime |           |
+| Table      | Type     | Note            |
+| :---       | :---     | :---            |
+| id         | int      |                 |
+| family_id  | int      |                 |
+| name       | string   | NOTNULL         |
+| icon       | string   | length=50       |
+| color      | string   | length=7        |
+| type       | enum     | revenue/expense |
+| deleted_at | datetime | softdelete      |
+| timestamps | datetime |                 |
 
 ---
 
