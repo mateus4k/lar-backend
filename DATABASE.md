@@ -49,10 +49,11 @@
 | :---        | :---     | :---          |
 | id          | int      |               |
 | user_id     | int      |               |
+| family_id   | int      |               |
 | category_id | string   |               |
-| name        | string   |               |
+| note        | string   |               |
 | value       | float    |               |
-| datetime    | datetime | default=now() |
+| date        | datetime | default=now() |
 | timestamps  | datetime |               |
 
 ---

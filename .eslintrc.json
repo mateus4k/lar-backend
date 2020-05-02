@@ -18,6 +18,7 @@
     "prettier/prettier": "error",
     "space-before-function-paren": "off",
     "consistent-return": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "camelcase": "off"
   }
 }

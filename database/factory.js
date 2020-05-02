@@ -48,3 +48,12 @@ Factory.blueprint('App/Models/Category', (faker, i, data = {}) => {
     ...data
   }
 })
+
+Factory.blueprint('App/Models/Expense', (faker, i, data = {}) => {
+  return {
+    note: faker.sentence({ words: 3 }),
+    value: faker.floating({ min: 0, max: 99999999, fixed: 2 }),
+    date: new Date().toISOString(),
+    ...data
+  }
+})

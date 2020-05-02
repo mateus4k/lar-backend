@@ -10,6 +10,10 @@ class User extends Model {
     this.addHook('beforeSave', 'UserHook.hashPassword')
   }
 
+  static get hidden() {
+    return ['password']
+  }
+
   tokens() {
     return this.hasMany('App/Models/Token')
   }
@@ -18,8 +22,8 @@ class User extends Model {
     return this.belongsTo('App/Models/Family', 'family_id', 'id')
   }
 
-  static get hidden() {
-    return ['password']
+  expenses() {
+    return this.hasMany('App/Models/Expense')
   }
 }
 

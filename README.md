@@ -27,7 +27,7 @@ Categorias
 - [ ] A categoria pode ser associada a despesas (expense) ou entrada (revenue)
 
 Gastos
-- [ ] O usuário deve poder inserir um novo gasto escolhendo seu nome, data e hora, categoria e valor
+- [x] O usuário deve poder inserir um novo gasto escolhendo uma nota, data e hora, categoria e valor
 - [ ] **(PÓS-MVP)** O usuário líder deverá ser notificado a cada gasto de seus dependentes.
 
 Entradas

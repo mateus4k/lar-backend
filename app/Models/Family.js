@@ -22,6 +22,10 @@ class Family extends Model {
   categories() {
     return this.hasMany('App/Models/Category')
   }
+
+  expenses() {
+    return this.hasMany('App/Models/Expense')
+  }
 }
 
 module.exports = Family

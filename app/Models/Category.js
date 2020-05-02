@@ -13,6 +13,10 @@ class Category extends Model {
   static get deleteTimestamp() {
     return 'deleted_at/null'
   }
+
+  expenses() {
+    return this.hasMany('App/Models/Expense')
+  }
 }
 
 module.exports = Category
