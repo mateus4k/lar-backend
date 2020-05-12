@@ -79,6 +79,40 @@ test('it should be able to create a new expense', async ({
   assert.isNumber(response.body.expense.value)
 })
 
+test('it should be able to view a family expense', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
+
+  const expense = await Factory.model('App/Models/Expense').create({
+    family_id: family.id,
+    user_id: user.id,
+    category_id: category.id
+  })
+
+  const response = await client
+    .get(`/expenses/${expense.id}`)
+    .loginVia(user, 'jwt')
+    .end()
+
+  response.assertStatus(200)
+
+  assert.equal(response.body.family_id, family.id)
+  assert.equal(response.body.user_id, user.id)
+  assert.equal(response.body.category_id, category.id)
+  assert.equal(response.body.date, expense.date)
+  assert.isNotNull(response.body.date)
+  assert.isNumber(response.body.value)
+})
+
 //
 //
 // verificar se o endpoint verifica o tipo

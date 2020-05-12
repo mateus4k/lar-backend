@@ -60,7 +60,14 @@ class ExpenseController {
    * @param {Response} ctx.response
    
    */
-  async show({ params, request, response, view }) {}
+  async show({ params, request, response, view }) {
+    const expense = await request.family
+      .expenses()
+      .where('id', params.id)
+      .first()
+
+    return expense
+  }
 
   /**
    * @param {object} ctx
