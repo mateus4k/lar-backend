@@ -31,7 +31,7 @@ Gastos
 - [ ] **(PÓS-MVP)** O usuário líder deverá ser notificado a cada gasto de seus dependentes.
 
 Entradas
-- [ ] **(PÓS-MVP)** O usuário líder deve poder registrar uma nova entrada
+- [ ] O usuário líder deve poder registrar uma nova entrada
 
 Relatórios
 - [ ] O usuário poderá visualizar gráficos com os gastos do mês por categoria.
