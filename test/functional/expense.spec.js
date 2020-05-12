@@ -71,9 +71,14 @@ test('it should be able to create a new expense', async ({
 
   response.assertStatus(201)
 
+  const expenseCategory = await Category.findOrFail(
+    response.body.expense.category_id
+  )
+
   assert.equal(response.body.expense.family_id, family.id)
   assert.equal(response.body.expense.user_id, user.id)
   assert.equal(response.body.expense.category_id, category.id)
+  assert.equal(expenseCategory.type, category.type)
   assert.equal(response.body.expense.date, response.body.expense.created_at)
   assert.isNotNull(response.body.expense.date)
   assert.isNumber(response.body.expense.value)
@@ -114,15 +119,6 @@ test('it should be able to show a family expense', async ({
   assert.isNotNull(response.body.date)
   assert.isNumber(response.body.value)
 })
-
-//
-//
-// verificar se o endpoint verifica o tipo
-// const expenseCategory = await Category.find(response.body.expense.category_id)
-//
-// assert.equal(category.type, expenseCategory.type)
-//
-//
 
 // test('it should be able to show a category', async ({ assert, client }) => {
 //   const user = await Factory.model('App/Models/User').create()
