@@ -18,7 +18,11 @@ class ExpenseController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async index({ request, response, view }) {}
+  async index({ request, response, view }) {
+    const expenses = await request.family.expenses().fetch()
+
+    return { expenses }
+  }
 
   /**
    * @param {object} ctx
