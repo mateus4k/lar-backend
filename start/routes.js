@@ -32,4 +32,5 @@ Route.group(() => {
   Route.get('expenses/:id', 'ExpenseController.show')
   // TODO: validator
   Route.post('expenses', 'ExpenseController.store')
+  Route.delete('expenses/:id', 'ExpenseController.destroy')
 }).middleware(['auth:jwt', 'family'])

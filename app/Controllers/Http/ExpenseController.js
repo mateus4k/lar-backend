@@ -80,7 +80,16 @@ class ExpenseController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, request, response }) {
+    const expense = await request.family
+      .expenses()
+      .where('id', params.id)
+      .first()
+
+    await expense.delete()
+
+    response.status(204).send()
+  }
 }
 
 module.exports = ExpenseController

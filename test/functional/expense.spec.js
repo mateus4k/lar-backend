@@ -120,23 +120,33 @@ test('it should be able to show a family expense', async ({
   assert.isNumber(response.body.value)
 })
 
-// test('it should be able to show a category', async ({ assert, client }) => {
-//   const user = await Factory.model('App/Models/User').create()
-//   const family = await Factory.model('App/Models/Family').create()
+test('it should be able delete a expense', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
 
-//   await family.users().save(user)
+  await family.users().save(user)
 
-//   const category = await Factory.model('App/Models/Category').create({
-//     family_id: family.id
-//   })
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
 
-//   const response = await client
-//     .get(`categories/${category.id}`)
-//     .loginVia(user, 'jwt')
-//     .end()
+  let expense = await Factory.model('App/Models/Expense').create({
+    family_id: family.id,
+    category_id: category.id,
+    user_id: user.id,
+    value: '150,50'
+  })
 
-//   response.assertStatus(200)
+  const response = await client
+    .delete(`expenses/${expense.id}`)
+    .loginVia(user, 'jwt')
+    .end()
 
-//   assert.equal(response.body.id, category.id)
-//   assert.equal(response.body.family_id, family.id)
-// })
+  response.assertStatus(204)
+
+  expense = await Expense.query().withTrashed().where('id', expense.id).first()
+
+  assert.exists(expense.id)
+  assert.isNotNull(expense.deleted_at)
+  assert.isTrue(expense.isTrashed)
+})
