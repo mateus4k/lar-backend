@@ -84,6 +84,34 @@ test('it should be able to create a new expense', async ({
   assert.isNumber(response.body.expense.value)
 })
 
+test('it should not be able to create a new expense with not an expense category', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const expense = await Factory.model('App/Models/Expense').create({
+    category_id: category.id,
+    user_id: user.id,
+    value: '150,50'
+  })
+
+  const response = await client
+    .post('/expenses')
+    .loginVia(user, 'jwt')
+    .send(expense.toJSON())
+    .end()
+
+  response.assertStatus(401)
+})
+
 test('it should be able to show a family expense', async ({
   assert,
   client
@@ -172,7 +200,7 @@ test('only the family leader should be able to delete an expense', async ({
   let expense = await Factory.model('App/Models/Expense').create({
     family_id: family.id,
     category_id: category.id,
-    user_id: commonUser.id,
+    user_id: leadingUser.id,
     value: '150,50'
   })
 
