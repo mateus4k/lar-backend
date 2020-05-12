@@ -4,6 +4,12 @@
 const Model = use('Model')
 
 class Expense extends Model {
+  static boot() {
+    super.boot()
+
+    this.addTrait('@provider:Lucid/SoftDeletes')
+  }
+
   user() {
     return this.belongsTo('App/Models/User')
   }

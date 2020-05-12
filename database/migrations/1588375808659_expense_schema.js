@@ -33,6 +33,7 @@ class ExpenseSchema extends Schema {
       table.string('note', 254).nullable()
       table.float('value').unsigned()
       table.timestamp('date').defaultTo(this.fn.now())
+      table.timestamp('deleted_at')
       table.timestamps()
     })
   }
