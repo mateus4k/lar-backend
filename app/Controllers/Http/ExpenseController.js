@@ -9,9 +9,6 @@ const { parseISO, format } = require('date-fns')
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Expense = use('App/Models/Expense')
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Category = use('App/Models/Category')
-
 class ExpenseController {
   /**
    * @param {object} ctx
@@ -35,7 +32,10 @@ class ExpenseController {
     value = Number(value.toString().replace(',', '.'))
     date = format(parseISO(date), 'yyyy-MM-dd HH:mm:ss')
 
-    const category = await Category.findOrFail(category_id)
+    const category = await request.family
+      .categories()
+      .where('id', category_id)
+      .first()
 
     if (category.type !== 'expense') {
       return response.status(401).send()
