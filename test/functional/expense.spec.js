@@ -79,7 +79,7 @@ test('it should be able to create a new expense', async ({
   assert.isNumber(response.body.expense.value)
 })
 
-test('it should be able to view a family expense', async ({
+test('it should be able to show a family expense', async ({
   assert,
   client
 }) => {
@@ -107,7 +107,9 @@ test('it should be able to view a family expense', async ({
 
   assert.equal(response.body.family_id, family.id)
   assert.equal(response.body.user_id, user.id)
+  assert.equal(response.body.user.name, user.name)
   assert.equal(response.body.category_id, category.id)
+  assert.equal(response.body.category.name, category.name)
   assert.equal(response.body.date, expense.date)
   assert.isNotNull(response.body.date)
   assert.isNumber(response.body.value)

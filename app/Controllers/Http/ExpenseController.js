@@ -57,14 +57,15 @@ class ExpenseController {
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   
    */
-  async show({ params, request, response, view }) {
+  async show({ params, request }) {
     const expense = await request.family
       .expenses()
       .where('id', params.id)
       .first()
+
+    await expense.load('user')
+    await expense.load('category')
 
     return expense
   }
