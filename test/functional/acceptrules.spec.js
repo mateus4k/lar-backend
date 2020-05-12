@@ -10,10 +10,7 @@ trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
 
-test('it should not allow two users with the same email', async ({
-  client,
-  assert
-}) => {
+test('it should be able to accept rules', async ({ client, assert }) => {
   const userFactory = await Factory.model('App/Models/User').make()
 
   const user = await User.create({
