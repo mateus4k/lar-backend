@@ -73,18 +73,25 @@ class ExpenseController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  // async update({ params, request, response }) {}
 
   /**
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
+   * @param {Auth} ctx.auth
    */
-  async destroy({ params, request, response }) {
+  async destroy({ params, request, response, auth }) {
     const expense = await request.family
       .expenses()
       .where('id', params.id)
       .first()
+
+    const leader = await request.family.leader().fetch()
+
+    if (auth.user.id !== leader.id) {
+      response.status(401).send()
+    }
 
     await expense.delete()
 

@@ -7,5 +7,5 @@
   "exclude": [
     "**/*.spec.js"
   ],
-  "reporter": ["text"]
+  "reporter": ["html"]
 }
