@@ -7,14 +7,11 @@ branches:
 node_js:
   - 12
   
-sudo: false
-
 before_install:
-  - cp .env.example .env
+  - (cp .env.example .env)
 
 install:
   - npm install
-  - npm install -g codecov
   
 script:
   - npm run lint
