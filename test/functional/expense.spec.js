@@ -85,7 +85,6 @@ test('it should be able to create a new expense', async ({
 })
 
 test('it should not be able to create a new expense with not an expense category', async ({
-  assert,
   client
 }) => {
   const user = await Factory.model('App/Models/User').create()
@@ -100,7 +99,7 @@ test('it should not be able to create a new expense with not an expense category
   const expense = await Factory.model('App/Models/Expense').create({
     category_id: category.id,
     user_id: user.id,
-    value: '150,50'
+    value: 150.5
   })
 
   const response = await client
