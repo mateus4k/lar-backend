@@ -12,7 +12,7 @@ class ExpenseStore {
     return {
       category_id: [rule('required'), rule('exists', ['categories', 'id'])],
       note: [rule('max', 254)],
-      value: [rule('required')],
+      value: [rule('required'), rule('number')],
       date: [rule('date')]
     }
   }

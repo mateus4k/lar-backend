@@ -60,7 +60,7 @@ test('it should be able to create a new expense', async ({
   const expense = await Factory.model('App/Models/Expense').create({
     category_id: category.id,
     user_id: user.id,
-    value: '150,50'
+    value: 150.5
   })
 
   const response = await client
@@ -163,7 +163,7 @@ test('it should be able delete an expense', async ({ assert, client }) => {
     family_id: family.id,
     category_id: category.id,
     user_id: user.id,
-    value: '150,50'
+    value: 150.5
   })
 
   const response = await client
@@ -200,7 +200,7 @@ test('only the family leader should be able to delete an expense', async ({
     family_id: family.id,
     category_id: category.id,
     user_id: leadingUser.id,
-    value: '150,50'
+    value: 150.5
   })
 
   const response = await client
