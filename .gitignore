@@ -13,3 +13,4 @@ database/*.sqlite
 # Nyc code coverage report output
 .nyc_output
 coverage
+coverage.lcov

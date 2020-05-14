@@ -1,8 +1,9 @@
 # LAR 👨‍👩‍👧‍👦 Gestão Financeira Domiciliar
-![shield](https://img.shields.io/badge/AdonisJs-v4.1-blueviolet)
-![shield](https://img.shields.io/github/languages/top/mateus4k/lar-backend)
-![shield](https://img.shields.io/github/languages/code-size/mateus4k/lar-backend)
 
+[![Build Status](https://api.travis-ci.org/mateus4k/lar-backend.svg?branch=master)](https://travis-ci.org/mateus4k/lar-backend)
+[![codecov](https://codecov.io/gh/mateus4k/lar-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/mateus4k/lar-backend)
+![Adonis Version](https://img.shields.io/badge/AdonisJs-v4.1-blueviolet)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/mateus4k/lar-backend/issues)
 
 ## Levantameto de requisitos
 
