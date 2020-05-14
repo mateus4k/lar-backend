@@ -1,0 +1,19 @@
+language: node_js
+
+branches:
+  only:
+    - master
+
+node_js:
+  - 12
+  
+services:
+  - pg
+
+sudo: false
+
+install:
+  - npm install
+  
+after_script:
+  - npm run coverage
