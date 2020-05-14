@@ -2,6 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/mateus4k/lar-backend.svg?branch=master)](https://travis-ci.org/mateus4k/lar-backend)
 [![codecov](https://codecov.io/gh/mateus4k/lar-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/mateus4k/lar-backend)
+[![Coverage Status](https://coveralls.io/repos/github/mateus4k/lar-backend/badge.svg?branch=master)](https://coveralls.io/github/mateus4k/lar-backend?branch=master)
 ![Adonis Version](https://img.shields.io/badge/AdonisJs-v4.1-blueviolet)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/mateus4k/lar-backend/issues)
 
