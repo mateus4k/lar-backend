@@ -7,9 +7,6 @@ branches:
 node_js:
   - 12
   
-services:
-  - pg
-
 sudo: false
 
 install:
