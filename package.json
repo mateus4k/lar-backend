@@ -1,6 +1,6 @@
 {
   "name": "lar-backend",
-  "version": "4.1.0",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
   "description": "LAR App Backend",
   "main": "index.js",
