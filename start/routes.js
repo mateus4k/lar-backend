@@ -13,7 +13,7 @@ Route.post('reset', 'ResetPasswordController.store').validator('Reset')
 
 Route.group(() => {
   Route.post('accept_rules', 'AcceptRuleController.store')
-  // TODO: validator
+
   Route.put('register/:family_code/associate', 'RegisterController.update')
 
   Route.post('families', 'FamilyController.store').validator('Family')
@@ -22,10 +22,12 @@ Route.group(() => {
 Route.group(() => {
   Route.get('categories', 'CategoryController.index')
   Route.get('categories/:id', 'CategoryController.show')
-  // TODO: validator
-  Route.post('categories', 'CategoryController.store')
-  // TODO: validator
-  Route.put('categories/:id', 'CategoryController.update')
+  Route.post('categories', 'CategoryController.store').validator(
+    'CategoryStore'
+  )
+  Route.put('categories/:id', 'CategoryController.update').validator(
+    'CategoryUpdate'
+  )
   Route.delete('categories/:id', 'CategoryController.destroy')
 
   Route.get('expenses', 'ExpenseController.index')
