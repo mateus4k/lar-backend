@@ -1,10 +1,7 @@
 # LAR 👨‍👩‍👧‍👦 Gestão Financeira Domiciliar
-![shield](https://img.shields.io/appveyor/build/mateus4k/lar-backend)
-![shield](https://img.shields.io/nycrc/mateus4k/lar-backend)
+![shield](https://img.shields.io/badge/AdonisJs-v4.1-blueviolet)
 ![shield](https://img.shields.io/github/languages/top/mateus4k/lar-backend)
 ![shield](https://img.shields.io/github/languages/code-size/mateus4k/lar-backend)
-![shield](https://img.shields.io/badge/AdonisJs-v4.1-blueviolet)
-![shield](https://img.shields.io/github/package-json/dependency-version/mateus4k/lar-backend/@adonisjs/lucid)
 
 
 ## Levantameto de requisitos
