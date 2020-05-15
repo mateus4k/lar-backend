@@ -1,4 +1,4 @@
-const { test, trait } = use('Test/Suite')('Categories')
+const { test, trait } = use('Test/Suite')('Category')
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
