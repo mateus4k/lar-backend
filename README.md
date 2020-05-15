@@ -23,7 +23,7 @@ Família
 
 Categorias
 - [x] O líder da família deve poder gerenciar suas categorias (nome, ícone e cor)
-- [ ] A categoria pode ser associada a despesas (expense) ou entrada (revenue)
+- [x] A categoria pode ser associada a despesas (expense) ou entrada (revenue)
 
 Gastos
 - [x] O usuário deve poder inserir um novo gasto escolhendo uma nota, data e hora, categoria e valor
