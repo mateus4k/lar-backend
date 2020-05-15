@@ -79,7 +79,7 @@ test('it should be able to create a new revenue', async ({
   assert.equal(response.body.revenue.user_id, user.id)
   assert.equal(response.body.revenue.category_id, category.id)
   assert.equal(revenueCategory.type, category.type)
-  assert.equal(response.body.revenue.date, response.body.revenue.created_at)
+  assert.isNotNull(response.body.revenue.date)
   assert.isNotNull(response.body.revenue.date)
   assert.isNumber(response.body.revenue.value)
 })
