@@ -3,20 +3,23 @@ const { test, trait } = use('Test/Suite')('Accept Rules')
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const User = use('App/Models/User')
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Hooks')} */
+const UserHook = use('App/Models/Hooks/UserHook')
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 trait('Auth/Client')
 
 test('it should be able to accept rules', async ({ client, assert }) => {
-  const userFactory = await Factory.model('App/Models/User').make()
+  const originalHashPasswordHook = UserHook.hashPassword
 
-  const user = await User.create({
-    ...userFactory.toJSON(),
+  UserHook.hashPassword = () => null
+
+  const user = await Factory.model('App/Models/User').create({
     password: '123456'
   })
+
+  UserHook.hashPassword = originalHashPasswordHook
 
   const response = await client
     .post('/accept_rules')
