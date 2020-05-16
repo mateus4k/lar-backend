@@ -79,7 +79,6 @@ test('it should be able to create a new expense', async ({
   assert.equal(response.body.expense.user_id, user.id)
   assert.equal(response.body.expense.category_id, category.id)
   assert.equal(expenseCategory.type, category.type)
-  assert.equal(response.body.expense.date, response.body.expense.created_at)
   assert.isNotNull(response.body.expense.date)
   assert.isNumber(response.body.expense.value)
 })
@@ -143,7 +142,6 @@ test('it should be able to show a family expense', async ({
   assert.equal(response.body.category_id, category.id)
   assert.equal(response.body.category.name, category.name)
   assert.equal(response.body.date, expense.date)
-  assert.isNotNull(response.body.date)
   assert.isNumber(response.body.value)
 })
 
