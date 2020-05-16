@@ -33,6 +33,7 @@
     "@adonisjs/vow": "^1.0.17",
     "@radmen/adonis-lucid-soft-deletes": "^0.2.0",
     "date-fns": "^2.12.0",
+    "lodash": "^4.17.15",
     "pg": "^8.0.2"
   },
   "devDependencies": {
