@@ -15,6 +15,7 @@ Autenticação
 - [x] O usuário deve poder criar uma conta com nome, e-mail e senha;
 - [x] O usuário deve poder se autenticar na aplicação com e-mail e senha;
 - [x] O usuário deve poder alterar sua senha informando a senha nova e a sua confirmação;
+- [ ] **(PÓS-MVP)** O usuário deve poder alterar os dados de seu perfil;
 
 Família
 - [x] Após o primeiro login, o usuário deverá **criar seu lar** ou **entrar em um lar já existente** com seu respectivo código *(id)*.
@@ -27,10 +28,14 @@ Categorias
 
 Gastos
 - [x] O usuário deve poder inserir um novo gasto escolhendo uma nota, data e hora, categoria e valor
+- [ ] O usuário líder deve poder atualizar um gasto
+- [x] O usuário líder deve poder excluir um gasto
 - [ ] **(PÓS-MVP)** O usuário líder deverá ser notificado a cada gasto de seus dependentes.
 
 Entradas
 - [x] O usuário líder deve poder registrar uma nova entrada
+- [ ] O usuário líder deve poder atualizar uma entrada
+- [x] O usuário líder deve poder excluir uma entrada
 
 Relatórios
 - [x] O usuário poderá visualizar gráficos com os gastos do mês por categoria.
@@ -49,8 +54,8 @@ Relatórios
 ### Regras de negócio
 
 - [x] O e-mail do usuário é único
-- [ ] O usuário não pode alterar seu e-mail
+- [ ] **(PÓS-MVP)** O usuário não pode alterar seu e-mail
 - [x] O usuário criador do grupo deve ser automaticamente o líder
-- [ ] Somente o líder poderá editar ou excluir despesas
-- [ ] O dependente só pode ver suas próprias despesas
+- [x] Somente o líder poderá editar ou excluir despesas
+- [x] O dependente só pode ver suas próprias despesas
 - [ ] Todos cadastros devem possuir validação de campos com mensagens legíveis
