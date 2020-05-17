@@ -65,13 +65,13 @@ class ReportService {
     const baseExpensesQuery = this.family.expenses()
     const baseRevenuesQuery = this.family.revenues()
 
-    if (this.isUserLeader) {
-      expenses = await baseExpensesQuery.fetch()
-      revenues = await baseRevenuesQuery.fetch()
-    } else {
-      expenses = await baseExpensesQuery.where('user_id', this.user.id).fetch()
-      revenues = await baseRevenuesQuery.where('user_id', this.user.id).fetch()
+    if (!this.isUserLeader) {
+      expenses = baseExpensesQuery.where('user_id', this.user.id)
+      revenues = baseRevenuesQuery.where('user_id', this.user.id)
     }
+
+    expenses = await baseExpensesQuery.fetch()
+    revenues = await baseRevenuesQuery.fetch()
 
     return {
       expenses,
