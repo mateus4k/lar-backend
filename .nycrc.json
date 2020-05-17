@@ -1,11 +1,15 @@
 {
   "all": true,
-  "check-coverage": false,
-  "include": [
-    "app/Controllers/**/*.js"
-  ],
   "exclude": [
-    "**/*.spec.js"
+    "coverage/**",
+    "packages/*/test/**",
+    "test/**",
+    "test{,-*}.{js,cjs,mjs,ts}",
+    "**/*{.,-}test.{js,cjs,mjs,ts}",
+    "**/__tests__/**",
+    "node_modules",
+    "voewfile.js",
+    "server.js"
   ],
-  "reporter": ["html"]
+  "reporter": ["html", "lcov"]
 }
