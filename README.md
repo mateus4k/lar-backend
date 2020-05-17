@@ -33,7 +33,7 @@ Entradas
 - [x] O usuário líder deve poder registrar uma nova entrada
 
 Relatórios
-- [ ] O usuário poderá visualizar gráficos com os gastos do mês por categoria.
+- [x] O usuário poderá visualizar gráficos com os gastos do mês por categoria.
 
 ---
 
