@@ -1,3 +1,4 @@
+/** @type {typeof import('@adonisjs/vow/src/Suite')} */
 const { test, trait } = use('Test/Suite')('Report')
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
@@ -78,7 +79,9 @@ async function createRevenues({ quantity = 1, user, family }) {
   return { revenues: revenues.map((revenue) => revenue.toJSON()) }
 }
 
-test('it should be able to list family reports', async ({ assert, client }) => {
+test('the lead user should be able to list family reports', async ({
+  client
+}) => {
   const { user, family } = await createUserAndFamily()
   const { revenues } = await createRevenues({ quantity: 2, user, family })
   const { expenses } = await createExpenses({ quantity: 3, user, family })
@@ -91,4 +94,62 @@ test('it should be able to list family reports', async ({ assert, client }) => {
     revenues,
     expenses
   })
+})
+
+test('the lead user should be able to list family expenses grouped by categories', async ({
+  assert,
+  client
+}) => {
+  const { user, family } = await createUserAndFamily()
+  const { expenses } = await createExpenses({ quantity: 3, user, family })
+
+  const response = await client
+    .get('/reports?by=category&get=expenses')
+    .loginVia(user, 'jwt')
+    .end()
+
+  let categories = await family
+    .categories()
+    .with('expenses')
+    .withCount('expenses as total_expenses')
+    .fetch()
+
+  categories = categories.toJSON()
+
+  response.assertStatus(200)
+
+  response.assertJSONSubset({
+    categories
+  })
+
+  assert.containsAllKeys(categories[0].expenses[0], expenses[0])
+})
+
+test('the lead user should be able to list family revenues grouped by categories', async ({
+  assert,
+  client
+}) => {
+  const { user, family } = await createUserAndFamily()
+  const { revenues } = await createRevenues({ quantity: 3, user, family })
+
+  const response = await client
+    .get('/reports?by=category&get=revenues')
+    .loginVia(user, 'jwt')
+    .end()
+
+  let categories = await family
+    .categories()
+    .with('revenues')
+    .withCount('revenues as total_revenues')
+    .fetch()
+
+  categories = categories.toJSON()
+
+  response.assertStatus(200)
+
+  response.assertJSONSubset({
+    categories
+  })
+
+  assert.containsAllKeys(categories[0].revenues[0], revenues[0])
 })
