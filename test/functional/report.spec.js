@@ -96,6 +96,31 @@ test('the lead user should be able to list family reports', async ({
   })
 })
 
+test('the common user should be able to list your own reports', async ({
+  client
+}) => {
+  const { family } = await createUserAndFamily()
+
+  const user = await Factory.model('App/Models/User').create({
+    password: '12345678',
+    family_id: family.id
+  })
+
+  const { revenues } = await createRevenues({ quantity: 2, user, family })
+  const { expenses } = await createExpenses({ quantity: 3, user, family })
+
+  const response = await client.get('/reports').loginVia(user, 'jwt').end()
+
+  response.assertStatus(200)
+
+  console.log(response.data)
+
+  response.assertJSONSubset({
+    revenues,
+    expenses
+  })
+})
+
 test('the lead user should be able to list family expenses grouped by categories', async ({
   assert,
   client
@@ -152,4 +177,39 @@ test('the lead user should be able to list family revenues grouped by categories
   })
 
   assert.containsAllKeys(categories[0].revenues[0], revenues[0])
+})
+
+test('the common user should be able to list your own expenses grouped by categories', async ({
+  assert,
+  client
+}) => {
+  const { family } = await createUserAndFamily()
+
+  const user = await Factory.model('App/Models/User').create({
+    password: '12345678',
+    family_id: family.id
+  })
+
+  const { expenses } = await createExpenses({ quantity: 3, user, family })
+
+  const response = await client
+    .get('/reports?by=category&get=expenses')
+    .loginVia(user, 'jwt')
+    .end()
+
+  let categories = await family
+    .categories()
+    .with('expenses')
+    .withCount('expenses as total_expenses')
+    .fetch()
+
+  categories = categories.toJSON()
+
+  response.assertStatus(200)
+
+  response.assertJSONSubset({
+    categories
+  })
+
+  assert.containsAllKeys(categories[0].expenses[0], expenses[0])
 })
