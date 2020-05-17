@@ -113,8 +113,6 @@ test('the common user should be able to list your own reports', async ({
 
   response.assertStatus(200)
 
-  console.log(response.data)
-
   response.assertJSONSubset({
     revenues,
     expenses
@@ -186,6 +184,7 @@ test('the common user should be able to list your own expenses grouped by catego
   const { family } = await createUserAndFamily()
 
   const user = await Factory.model('App/Models/User').create({
+    id: 78,
     password: '12345678',
     family_id: family.id
   })
@@ -212,4 +211,40 @@ test('the common user should be able to list your own expenses grouped by catego
   })
 
   assert.containsAllKeys(categories[0].expenses[0], expenses[0])
+})
+
+test('the common user should be able to list your own revenues grouped by categories', async ({
+  assert,
+  client
+}) => {
+  const { family } = await createUserAndFamily()
+
+  const user = await Factory.model('App/Models/User').create({
+    id: 78,
+    password: '12345678',
+    family_id: family.id
+  })
+
+  const { revenues } = await createRevenues({ quantity: 3, user, family })
+
+  const response = await client
+    .get('/reports?by=category&get=revenues')
+    .loginVia(user, 'jwt')
+    .end()
+
+  let categories = await family
+    .categories()
+    .with('revenues')
+    .withCount('revenues as total_revenues')
+    .fetch()
+
+  categories = categories.toJSON()
+
+  response.assertStatus(200)
+
+  response.assertJSONSubset({
+    categories
+  })
+
+  assert.containsAllKeys(categories[0].revenues[0], revenues[0])
 })

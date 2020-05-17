@@ -38,19 +38,27 @@ class ReportService {
     const baseCategoriesQuery = this.family.categories()
 
     if (this.request.input('get') === 'expenses') {
-      baseCategoriesQuery
-        .with('expenses')
-        .withCount('expenses as total_expenses')
+      baseCategoriesQuery.with('expenses')
+
+      if (!this.isUserLeader) {
+        baseCategoriesQuery.with('expenses', (builder) => {
+          builder.where('user_id', this.user.id)
+        })
+      }
+
+      baseCategoriesQuery.withCount('expenses as total_expenses')
     }
 
     if (this.request.input('get') === 'revenues') {
-      baseCategoriesQuery
-        .with('revenues')
-        .withCount('revenues as total_revenues')
-    }
+      baseCategoriesQuery.with('revenues')
 
-    if (!this.isUserLeader) {
-      baseCategoriesQuery.where('user_id', this.user.id)
+      if (!this.isUserLeader) {
+        baseCategoriesQuery.with('revenues', (builder) => {
+          builder.where('user_id', this.user.id)
+        })
+      }
+
+      baseCategoriesQuery.withCount('revenues as total_revenues')
     }
 
     let categories = await baseCategoriesQuery.fetch()
