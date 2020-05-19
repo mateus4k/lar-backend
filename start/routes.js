@@ -44,6 +44,9 @@ Route.group(() => {
   Route.get('revenues', 'RevenueController.index')
   Route.get('revenues/:id', 'RevenueController.show')
   Route.post('revenues', 'RevenueController.store').validator('RevenueStore')
+  Route.put('revenues/:id', 'RevenueController.update').validator(
+    'RevenueUpdate'
+  )
   Route.delete('revenues/:id', 'RevenueController.destroy')
 
   Route.get('reports', 'ReportController.index')

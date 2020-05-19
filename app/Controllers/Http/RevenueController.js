@@ -27,7 +27,12 @@ class RevenueController {
    * @param {Auth} ctx.auth
    */
   async store({ request, response, auth }) {
-    let { category_id, note, value, date } = request.all()
+    let { category_id, note, value, date } = request.only([
+      'category_id',
+      'note',
+      'value',
+      'date'
+    ])
 
     value = Number(value.toString().replace(',', '.'))
     date = format(parseISO(date), 'yyyy-MM-dd HH:mm:ss')
@@ -72,8 +77,53 @@ class RevenueController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
+   * @param {Auth} ctx.auth
    */
-  // async update({ params, request, response }) {}
+  async update({ params, request, response, auth }) {
+    try {
+      const data = request.only(['category_id', 'note', 'value', 'date'])
+
+      if (data.value) {
+        data.value = Number(data.value.toString().replace(',', '.'))
+      }
+
+      if (data.date) {
+        data.date = format(parseISO(data.date), 'yyyy-MM-dd HH:mm:ss')
+      }
+
+      if (data.category_id) {
+        const category = await request.family
+          .categories()
+          .where('id', data.category_id)
+          .first()
+
+        if (category.type !== 'revenue') {
+          throw new Error('Category type must be revenue.')
+        }
+      }
+
+      const leader = await request.family.leader().fetch()
+
+      if (auth.user.id !== leader.id) {
+        throw new Error('You need to be a family leader to update a revenue.')
+      }
+
+      const revenue = await request.family
+        .revenues()
+        .where('id', params.id)
+        .first()
+
+      revenue.merge(data)
+
+      await revenue.save()
+
+      await revenue.reload()
+
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(401).send()
+    }
+  }
 
   /**
    * @param {object} ctx

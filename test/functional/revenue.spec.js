@@ -146,6 +146,51 @@ test('it should be able to show a family revenue', async ({
   assert.isNumber(response.body.value)
 })
 
+test('the family leader should be able to update a existent revenue', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const newCategory = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const revenue = await Factory.model('App/Models/Revenue').create({
+    family_id: family.id,
+    user_id: user.id,
+    category_id: category.id
+  })
+
+  const revenuePayload = {
+    note: 'AdonisJs',
+    value: 182.32,
+    date: new Date().toISOString(),
+    category_id: newCategory.id
+  }
+
+  const response = await client
+    .put(`/revenues/${revenue.id}`)
+    .loginVia(user, 'jwt')
+    .send({ ...revenuePayload })
+    .end()
+
+  await revenue.reload()
+
+  response.assertStatus(204)
+
+  assert.plan(3)
+  assert.equal(revenue.note, revenuePayload.note)
+  assert.equal(revenue.value, revenuePayload.value)
+})
+
 test('it should be able delete an revenue', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
   const family = await Factory.model('App/Models/Family').create({

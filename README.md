@@ -34,7 +34,7 @@ Gastos
 
 Entradas
 - [x] O usuário líder deve poder registrar uma nova entrada
-- [ ] O usuário líder deve poder atualizar uma entrada
+- [x] O usuário líder deve poder atualizar uma entrada
 - [x] O usuário líder deve poder excluir uma entrada
 
 Relatórios
