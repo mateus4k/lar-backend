@@ -191,6 +191,49 @@ test('the family leader should be able to update a existent revenue', async ({
   assert.equal(revenue.value, revenuePayload.value)
 })
 
+test('the family leader should be able to update a existent revenue', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const newCategory = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
+
+  const revenue = await Factory.model('App/Models/Revenue').create({
+    family_id: family.id,
+    user_id: user.id,
+    category_id: category.id
+  })
+
+  const revenuePayload = {
+    category_id: newCategory.id
+  }
+
+  const response = await client
+    .put(`/revenues/${revenue.id}`)
+    .loginVia(user, 'jwt')
+    .send({ ...revenuePayload })
+    .end()
+
+  await revenue.reload()
+
+  response.assertStatus(401)
+  response.assertError({
+    error: 'Category type must be revenue.'
+  })
+
+  assert.equal(revenue.category_id, category.id)
+})
+
 test('it should be able delete an revenue', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
   const family = await Factory.model('App/Models/Family').create({

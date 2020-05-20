@@ -121,7 +121,7 @@ class RevenueController {
 
       return response.status(204).send()
     } catch (error) {
-      return response.status(401).send()
+      return response.status(401).json({ error: error.message })
     }
   }
 
