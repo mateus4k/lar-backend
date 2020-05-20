@@ -117,8 +117,6 @@ class RevenueController {
 
       await revenue.save()
 
-      await revenue.reload()
-
       return response.status(204).send()
     } catch (error) {
       return response.status(401).json({ error: error.message })

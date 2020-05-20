@@ -191,7 +191,7 @@ test('the family leader should be able to update a existent revenue', async ({
   assert.equal(revenue.value, revenuePayload.value)
 })
 
-test('the family leader should be able to update a existent revenue', async ({
+test('it should not be able to update a existent revenue with a wrong category', async ({
   assert,
   client
 }) => {
@@ -232,6 +232,49 @@ test('the family leader should be able to update a existent revenue', async ({
   })
 
   assert.equal(revenue.category_id, category.id)
+})
+
+test('it should not be able to update a existent revenue if user is not the family leader', async ({
+  assert,
+  client
+}) => {
+  const leadingUser = await Factory.model('App/Models/User').create()
+  const commonUser = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create({
+    user_id: leadingUser.id
+  })
+
+  await family.users().save(leadingUser)
+  await family.users().save(commonUser)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const revenue = await Factory.model('App/Models/Revenue').create({
+    family_id: family.id,
+    user_id: commonUser.id,
+    category_id: category.id
+  })
+
+  const revenuePayload = {
+    value: 11.11
+  }
+
+  const response = await client
+    .put(`/revenues/${revenue.id}`)
+    .loginVia(commonUser, 'jwt')
+    .send({ ...revenuePayload })
+    .end()
+
+  await revenue.reload()
+
+  response.assertStatus(401)
+  response.assertError({
+    error: 'You need to be a family leader to update a revenue.'
+  })
+
+  assert.notEqual(revenue.value, revenuePayload.value)
 })
 
 test('it should be able delete an revenue', async ({ assert, client }) => {
