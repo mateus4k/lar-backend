@@ -28,7 +28,7 @@ Categorias
 
 Gastos
 - [x] O usuário deve poder inserir um novo gasto escolhendo uma nota, data e hora, categoria e valor
-- [ ] O usuário líder deve poder atualizar um gasto
+- [x] O usuário líder deve poder atualizar um gasto
 - [x] O usuário líder deve poder excluir um gasto
 - [ ] **(PÓS-MVP)** O usuário líder deverá ser notificado a cada gasto de seus dependentes.
 
