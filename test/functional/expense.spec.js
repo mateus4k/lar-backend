@@ -189,6 +189,7 @@ test('only the family leader should be able to delete an expense', async ({
   })
 
   await family.users().save(leadingUser)
+  await family.users().save(commonUser)
 
   const category = await Factory.model('App/Models/Category').create({
     type: 'expense'
@@ -197,8 +198,7 @@ test('only the family leader should be able to delete an expense', async ({
   let expense = await Factory.model('App/Models/Expense').create({
     family_id: family.id,
     category_id: category.id,
-    user_id: leadingUser.id,
-    value: 150.5
+    user_id: leadingUser.id
   })
 
   const response = await client
@@ -207,6 +207,9 @@ test('only the family leader should be able to delete an expense', async ({
     .end()
 
   response.assertStatus(401)
+  response.assertError({
+    error: 'You need to be a family leader to delete a expense.'
+  })
 
   expense = await Expense.query().withTrashed().where('id', expense.id).first()
 

@@ -82,20 +82,24 @@ class ExpenseController {
    * @param {Auth} ctx.auth
    */
   async destroy({ params, request, response, auth }) {
-    const expense = await request.family
-      .expenses()
-      .where('id', params.id)
-      .first()
+    try {
+      const expense = await request.family
+        .expenses()
+        .where('id', params.id)
+        .first()
 
-    const leader = await request.family.leader().fetch()
+      const leader = await request.family.leader().fetch()
 
-    if (auth.user.id !== leader.id) {
-      response.status(401).send()
+      if (auth.user.id !== leader.id) {
+        throw new Error('You need to be a family leader to delete a expense.')
+      }
+
+      await expense.delete()
+
+      response.status(204).send()
+    } catch (error) {
+      return response.status(401).json({ error: error.message })
     }
-
-    await expense.delete()
-
-    response.status(204).send()
   }
 }
 
