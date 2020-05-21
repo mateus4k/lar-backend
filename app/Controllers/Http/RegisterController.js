@@ -18,23 +18,19 @@ class RegisterController {
    * @param {Request} ctx.request
    */
   async store({ request, response }) {
-    try {
-      const { name, email, password } = request.only([
-        'name',
-        'email',
-        'password'
-      ])
+    const { name, email, password } = request.only([
+      'name',
+      'email',
+      'password'
+    ])
 
-      const user = await User.create({
-        name,
-        email,
-        password
-      })
+    const user = await User.create({
+      name,
+      email,
+      password
+    })
 
-      return { user }
-    } catch (error) {
-      return response.status(400).json(error)
-    }
+    return { user }
   }
 
   /**
@@ -44,22 +40,18 @@ class RegisterController {
    * @param {Auth} ctx.auth
    */
   async update({ response, params, auth }) {
-    try {
-      const familyCode = params.family_code
+    const familyCode = params.family_code
 
-      const family = await Family.findByOrFail('code', familyCode)
+    const family = await Family.findByOrFail('code', familyCode)
 
-      const user = await auth.getUser()
+    const user = await auth.getUser()
 
-      await user.family().associate(family)
+    await user.family().associate(family)
 
-      user.family_id = family.id
-      user.save()
+    user.family_id = family.id
+    user.save()
 
-      return response.status(204).send()
-    } catch (error) {
-      return response.status(400).json(error)
-    }
+    return response.status(204).send()
   }
 }
 
