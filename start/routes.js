@@ -39,6 +39,9 @@ Route.group(() => {
   Route.get('expenses', 'ExpenseController.index')
   Route.get('expenses/:id', 'ExpenseController.show')
   Route.post('expenses', 'ExpenseController.store').validator('ExpenseStore')
+  Route.put('expenses/:id', 'ExpenseController.update').validator(
+    'ExpenseUpdate'
+  )
   Route.delete('expenses/:id', 'ExpenseController.destroy')
 
   Route.get('revenues', 'RevenueController.index')

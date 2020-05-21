@@ -72,8 +72,51 @@ class ExpenseController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
+   * @param {Auth} ctx.auth
    */
-  // async update({ params, request, response }) {}
+  async update({ params, request, response, auth }) {
+    try {
+      const data = request.only(['category_id', 'note', 'value', 'date'])
+
+      if (data.value) {
+        data.value = Number(data.value.toString().replace(',', '.'))
+      }
+
+      if (data.date) {
+        data.date = format(parseISO(data.date), 'yyyy-MM-dd HH:mm:ss')
+      }
+
+      if (data.category_id) {
+        const category = await request.family
+          .categories()
+          .where('id', data.category_id)
+          .first()
+
+        if (category.type !== 'expense') {
+          throw new Error('Category type must be expense.')
+        }
+      }
+
+      const leader = await request.family.leader().fetch()
+
+      if (auth.user.id !== leader.id) {
+        throw new Error('You need to be a family leader to update a expense.')
+      }
+
+      const expense = await request.family
+        .expenses()
+        .where('id', params.id)
+        .first()
+
+      expense.merge(data)
+
+      await expense.save()
+
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(401).json({ error: error.message })
+    }
+  }
 
   /**
    * @param {object} ctx

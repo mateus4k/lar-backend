@@ -145,6 +145,137 @@ test('it should be able to show a family expense', async ({
   assert.isNumber(response.body.value)
 })
 
+test('the family leader should be able to update a existent expense', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
+
+  const newCategory = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
+
+  const expense = await Factory.model('App/Models/Expense').create({
+    family_id: family.id,
+    user_id: user.id,
+    category_id: category.id
+  })
+
+  const expensePayload = {
+    note: 'AdonisJs',
+    value: 182.32,
+    date: new Date().toISOString(),
+    category_id: newCategory.id
+  }
+
+  const response = await client
+    .put(`/expenses/${expense.id}`)
+    .loginVia(user, 'jwt')
+    .send({ ...expensePayload })
+    .end()
+
+  await expense.reload()
+
+  response.assertStatus(204)
+
+  assert.plan(3)
+  assert.equal(expense.note, expensePayload.note)
+  assert.equal(expense.value, expensePayload.value)
+})
+
+test('it should not be able to update a existent expense with a wrong category', async ({
+  assert,
+  client
+}) => {
+  const user = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create()
+
+  await family.users().save(user)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'expense'
+  })
+
+  const newCategory = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const expense = await Factory.model('App/Models/Expense').create({
+    family_id: family.id,
+    user_id: user.id,
+    category_id: category.id
+  })
+
+  const expensePayload = {
+    category_id: newCategory.id
+  }
+
+  const response = await client
+    .put(`/expenses/${expense.id}`)
+    .loginVia(user, 'jwt')
+    .send({ ...expensePayload })
+    .end()
+
+  await expense.reload()
+
+  response.assertStatus(401)
+  response.assertError({
+    error: 'Category type must be expense.'
+  })
+
+  assert.equal(expense.category_id, category.id)
+})
+
+test('it should not be able to update a existent expense if user is not the family leader', async ({
+  assert,
+  client
+}) => {
+  const leadingUser = await Factory.model('App/Models/User').create()
+  const commonUser = await Factory.model('App/Models/User').create()
+  const family = await Factory.model('App/Models/Family').create({
+    user_id: leadingUser.id
+  })
+
+  await family.users().save(leadingUser)
+  await family.users().save(commonUser)
+
+  const category = await Factory.model('App/Models/Category').create({
+    type: 'revenue'
+  })
+
+  const expense = await Factory.model('App/Models/Expense').create({
+    family_id: family.id,
+    user_id: commonUser.id,
+    category_id: category.id
+  })
+
+  const expensePayload = {
+    value: 11.11
+  }
+
+  const response = await client
+    .put(`/expenses/${expense.id}`)
+    .loginVia(commonUser, 'jwt')
+    .send({ ...expensePayload })
+    .end()
+
+  await expense.reload()
+
+  response.assertStatus(401)
+  response.assertError({
+    error: 'You need to be a family leader to update a expense.'
+  })
+
+  assert.notEqual(expense.value, expensePayload.value)
+})
+
 test('it should be able delete an expense', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create()
   const family = await Factory.model('App/Models/Family').create({
